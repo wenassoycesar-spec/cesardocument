@@ -1,0 +1,811 @@
+/* === BLOQUEO === */
+#lockScreen {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: #ffe6f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.lock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.lock-content img {
+  width: 180px;
+  height: auto;
+}
+
+#dynamicMessage {
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #d43250;
+  display: none;
+  animation: bounceMessage 1s ease-in-out infinite;
+}
+
+@keyframes bounceMessage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.lock-panel {
+  background: #fff8f9cc;
+  border: 3px solid #d46a7c;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+#passwordDisplay {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  gap: 10px;
+  justify-content: center;
+}
+
+.keypad button {
+  background: #ff99cc;
+  border: none;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.keypad button:hover {
+  background: #ff4d6d;
+  color: white;
+}
+
+/* Botón Mostrar/Ocultar */
+#togglePasswordBtn {
+  background: #ff99cc;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+
+#togglePasswordBtn:hover {
+  background: #ff4d6d;
+}
+
+/* === PANTALLA DE CARGA === */
+#loadingScreen {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: #ffe6f2;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 4000;
+  font-family: 'Poppins', sans-serif;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-content img {
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+#loadingScreen p {
+  font-size: 20px;
+  color: #d43250;
+  margin-bottom: 20px;
+  font-weight: bold;
+  animation: kawaiiBounce 1.5s infinite;
+}
+
+.progress-bar {
+  width: 250px;
+  height: 20px;
+  background: #fff;
+  border-radius: 20px;
+  border: 2px solid #ff4d6d;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff99cc, #ff4d6d);
+  border-radius: 20px;
+  transition: width 2.5s ease-in-out;
+}
+
+@keyframes kawaiiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* === GALERÍA CON FONDO HD, COLLAGE NATURAL Y EFECTO CRISTAL REALISTA === */
+.gallery-container {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('fond02.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.95) contrast(1.05);
+}
+
+/* Marco de cada imagen */
+.image-frame {
+  position: absolute;
+  background-color: #fff8f9cc;
+  padding: 10px;
+  border: 3px solid #d46a7c;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+/* Overlay tipo cristal realista */
+.image-frame::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.1) 100%);
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.2);
+}
+
+/* Animación al pasar el mouse */
+.image-frame:hover {
+  transform: scale(1.15) rotate(2deg);
+  z-index: 10;
+  box-shadow: 0 12px 20px rgba(0,0,0,0.35);
+}
+
+/* Imagen dentro del marco */
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 5px;
+  filter: brightness(1) saturate(1.05);
+}
+
+/* Distribución tipo collage más natural y separada */
+.image-frame:nth-child(1) { top: 5%; left: 35%; width: 150px; height: 190px; }   /* Stich */
+.image-frame:nth-child(2) { top: 12%; left: 55%; width: 200px; height: 240px; } /* Gato */
+.image-frame:nth-child(3) { top: 8%; left: 70%; width: 180px; height: 210px; }  /* Harry */
+.image-frame:nth-child(4) { top: 40%; left: 35%; width: 220px; height: 260px; } /* Snoopy */
+.image-frame:nth-child(5) { top: 45%; left: 60%; width: 200px; height: 230px; } /* Doraemon */
+.image-frame:nth-child(6) { top: 62%; left: 40%; width: 180px; height: 220px; } /* Batman y Spiderman */
+.image-frame:nth-child(7) { top: 57%; left: 70%; width: 210px; height: 250px; } /* Chimuelo */
+
+/* === TICKETS === */
+.ticket-machine {
+  position: fixed;
+  top: 20px;
+  left: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  gap: 10px;
+  width: 300px;
+}
+
+#generateTicketBtn {
+  background: linear-gradient(135deg, #ff4d6d, #ff758c);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#generateTicketBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+/* Ranura de tickets */
+.slot {
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(135deg, #333, #555);
+  border-radius: 15px;
+  border: 3px solid #d46a7c;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.4), 0 6px 12px rgba(0,0,0,0.25);
+  overflow: hidden;
+  position: relative;
+}
+
+#ticket-list {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  position: relative;
+}
+
+/* Ticket parcialmente visible */
+.love-ticket {
+  width: 90%;
+  height: 320px;
+  max-height: 40px;
+  background: #fffdfa;
+  border: 2px dashed #ff4d6d;
+  padding: 10px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  cursor: grab;
+  transition: max-height 0.5s ease, transform 0.5s ease;
+  overflow: hidden;
+}
+
+.love-ticket:active {
+  cursor: grabbing;
+}
+
+#pulled-ticket-area {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  z-index: 900;
+}
+
+/* Animación de impresión de ticket */
+.love-ticket {
+  background: #fffdfa;
+  border: 2px dashed #ff4d6d;
+  padding: 20px;
+  width: 260px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  transform: translateY(-150%);
+  animation: printTicket 1s forwards;
+}
+
+.love-ticket::before, .love-ticket::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(90deg, transparent 0px, transparent 10px, #ff4d6d 10px, #ff4d6d 12px);
+}
+
+.love-ticket::before { top: 0; }
+.love-ticket::after { bottom: 0; }
+
+.love-ticket h3 {
+  font-family: 'Dancing Script', cursive;
+  color: #d43250;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.love-ticket p { font-size: 14px; margin: 4px 0; color: #333; }
+.love-ticket .date { font-size: 12px; color: #777; margin-top: 8px; }
+.love-ticket .emoji { font-size: 22px; margin: 5px; }
+
+@keyframes printTicket {
+  0% { transform: translateY(-150%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* === CONTROL DE MÚSICA === */
+.music-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  z-index: 2000;
+  gap: 10px;
+}
+
+/* Botón de música */
+#musicControlBtn {
+  background: linear-gradient(135deg, #ff758c, #ff4d6d);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#musicControlBtn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #ff4d6d, #d43250);
+}
+
+#volumeSlider {
+  -webkit-appearance: none;
+  transform: rotate(-90deg);
+  width: 0;
+  opacity: 0;
+  height: 6px;
+  background: #ffb6c1;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ff4d6d;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.music-control:hover #volumeSlider {
+  width: 100px;
+  opacity: 1;
+}
+
+/* Cursor personalizado */
+body {
+  cursor: url('mouse.png'), auto;
+}
+
+/* Mensaje de jalar ticket */
+#pull-message {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  animation: bounceMessage 1.5s infinite;
+}
+
+/* --- Estilos del popup de la carta --- */
+.popup-carta {
+  display: none;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.carta-contenido {
+  position: relative;
+  background: #fffdfa;
+  border-radius: 12px;
+  padding: 20px;
+  animation: zoomIn 0.3s ease;
+  text-align: center;
+}
+
+.marco-carta {
+  border: 6px solid #ff4d6d;
+  border-radius: 12px;
+  padding: 15px;
+  background: #fff;
+  display: inline-block;
+}
+
+.marco-carta img {
+  max-width: 90vw;
+  max-height: 80vh;
+  transition: transform 0.3s ease;
+}
+
+.cerrar-carta {
+  position: absolute;
+  top: 10px; 
+  right: 10px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Botón zoom */
+.zoom-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #ff85c1, #ff4d88);
+  border: none;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 15px rgba(255, 50, 120, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  z-index: 1002;
+}
+
+.zoom-btn:hover {
+  transform: scale(1.2) rotate(8deg);
+  background: linear-gradient(135deg, #ff99cc, #ff4da6);
+  box-shadow: 0 8px 20px rgba(255, 0, 128, 0.6);
+}
+
+/* Animación de zoom */
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Popup general */
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor del popup */
+.popup-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Botón cerrar */
+.cerrar {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.cerrar:hover {
+  color: red;
+}
+
+/* Modal general de video */
+#modal-video {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-video {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.modal-video .modal-video-content {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.modal-video .modal-video-content video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+/* Botón cerrar video */
+.close-video {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: transform 0.18s ease, background 0.18s ease;
+  z-index: 2600;
+}
+
+.close-video:hover { 
+  transform: scale(1.08); 
+  background: #ff85b3;
+}
+
+/* --- Popup del rompecabezas --- */
+#puzzleModal { 
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+#puzzleModal .popup-content {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+  background: #1a1a1a;
+  padding: 22px;
+  border-radius: 15px;
+  position: relative;
+  margin-left: 120px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* Contenedor tablero */
+#puzzleBoardContainer { 
+  width: 420px;
+}
+
+/* Tablero 4x4 */
+#puzzleBoard {
+  width: 400px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  gap: 4px;
+  background: #0f0f0f;
+  padding: 8px;
+  border-radius: 12px;
+  border: 3px solid #ff4d6d;
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* Piezas */
+.puzzle-piece {
+  width: 100px;
+  height: 100px;
+  background-image: url("imagen para el rompecabezas.png");
+  background-size: 400px 400px;
+  border-radius: 6px;
+  cursor: grab;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+/* Botón reproducir video */
+#playVideoBtn {
+  display: none;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #ff758c, #ff4d6d);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+#playVideoBtn:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 10px 18px rgba(0,0,0,0.45); 
+}
+
+/* Imagen de referencia */
+#puzzleReference img { 
+  width: 150px; 
+  border: 3px solid #ff4d6d; 
+  border-radius: 12px; 
+}
+
+.reference-text {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 2px dashed #ff4d6d;
+  background: rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+/* Botón cerrar rompecabezas */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  background: #ff4d6d;
+  color: white;
+border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.chat-modal {
+  position: fixed;  /* Antes estaba absolute */
+  bottom: 20px;     /* distancia desde la parte inferior */
+  left: 20px;       /* distancia desde la izquierda */
+  width: 350px;
+  max-height: 450px;
+  background-color: #ffccd5; /* rosado */
+  border-radius: 20px;
+  display: none;
+  flex-direction: column;
+  z-index: 10000; /* Para que esté arriba de todo */
+}
+
+
+.chat-header {
+  background-color: #ff6699;
+  color: white;
+  padding: 8px 12px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-msg {
+  padding: 8px 12px;
+  border-radius: 20px;
+  max-width: 75%;
+  word-wrap: break-word;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.chat-msg.bot { background-color: #ffe6eb; align-self: flex-start; }
+.chat-msg.user { background-color: #ff66a3; color: white; align-self: flex-end; }
+.chat-msg img { width: 70px; height: 70px; border-radius: 12px; display: block; margin-top: 4px; }
+
+.chat-input-container { display: flex; padding: 6px; border-top: 1px solid #d1d1d6; }
+.chat-input-container input { flex: 1; padding: 8px 10px; border-radius: 16px; border: 1px solid #d1d1d6; }
+.chat-input-container button { margin-left: 5px; padding: 8px 14px; border-radius: 16px; border: none; background-color: #ff66a3; color: white; cursor: pointer; }
+
+#chatVideo { width: 100%; max-height: 280px; border-radius: 10px; margin: 5px 0; }
+
+.estrella { position: absolute; width: 25px; height: 25px; pointer-events: none; animation-name: caer; animation-timing-function: ease-in-out; opacity: 0.9; transform: rotate(0deg); }
+@keyframes caer { 0% { transform: translateY(0) rotate(0deg); opacity:1; } 50% { transform: translateY(150px) rotate(180deg); opacity:0.8; } 100% { transform: translateY(400px) rotate(360deg); opacity:0; } }
+
+/* Botón Siguiente bonito estilo Messenger rosado */
+.next-btn {
+  background: linear-gradient(135deg, #ff66b2, #ff3385);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin-top: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.next-btn:hover {
+  background: linear-gradient(135deg, #ff3385, #ff66b2);
+  transform: scale(1.05);
+}

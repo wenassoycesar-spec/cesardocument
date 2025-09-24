@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para ti vv ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- 🔒 Pantalla de bloqueo -->
+  <div id="lockScreen">
+    <div class="lock-content">
+      <img src="portada.gif" alt="Imagen Animada" id="lockImage"/>
+      <p id="dynamicMessage"></p>
+      <div class="lock-panel">
+        <div id="passwordDisplay">••••••••</div>
+        <button id="togglePasswordBtn">Mostrar Contraseña</button>
+        <div class="keypad">
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>4</button>
+          <button>5</button>
+          <button>6</button>
+          <button>7</button>
+          <button>8</button>
+          <button>9</button>
+          <button>Borrar</button>
+          <button>0</button>
+          <button>Enter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🌸 Pantalla de carga kawaii -->
+  <div id="loadingScreen">
+    <div class="loading-content">
+      <img src="cargando.gif" alt="Cargando"/>
+      <p>Cargando</p>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎶 Música de fondo -->
+  <audio id="bgMusic" loop>
+    <source src="LOCO (TU FORMA DE SER) - Cover _ Diego Charlot [D5u6oBeglGk].mp3" type="audio/mpeg"/>
+  </audio>
+
+  <div class="music-control">
+    <button id="musicControlBtn">🔊</button>
+    <input type="range" id="volumeSlider" min="0" max="100" value="50"/>
+  </div>
+
+  <!-- 🖼️ Galería -->
+<!-- 🖼️ Galería -->
+<div class="gallery-container">
+  <div class="image-frame">
+    <img src="stich.jpeg" alt="Stich"/>
+  </div>
+  <div class="image-frame">
+    <!-- Harry con ID -->
+    <img id="img-harry" src="harry.jpeg" alt="Harry Potter Chibi"/>
+  </div>
+  <div class="image-frame">
+    <!-- Snoopy con ID -->
+    <img id="img-snoopy" src="snoopy.jpeg" alt="Snoopy y Woodstock"/>
+  </div>
+  <div class="image-frame">
+    <img id="img-doraemon" src="doraemon.jpeg" alt="Doraemon" data-video="videomanga.mp4"/>
+  </div>
+  <div class="image-frame">
+    <img id="img-chimuelo" src="chimuelo.jpeg" alt="Chimuelo" data-video="videoflores.mp4"/>
+  </div>
+  <div class="image-frame">
+    <img id="batmanSpiderman" src="batman y spiderman.jpeg" alt="Batman y Spiderman"/>
+  </div>
+  <div class="image-frame">
+    <img id="gatoImg" src="gato.jpeg" alt="Gato" style="cursor:pointer;">
+  </div>
+</div>
+
+
+<!-- Chat Modal -->
+<div id="chatModal" class="chat-modal">
+  <div class="chat-header">
+    <span>Chat Mágico ✨</span>
+    <button id="closeChatBtn">X</button>
+  </div>
+  <div id="chatMessages" class="chat-messages"></div>
+  <video id="chatVideo" controls style="display:none;"></video>
+  <div class="chat-input-container">
+    <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+    <button id="sendBtn">Enviar</button>
+  </div>
+</div>
+
+
+
+
+    <!-- Ventana emergente del rompecabezas -->
+    <div id="puzzleModal" class="popup" style="display:none;">
+      <div class="popup-content">
+
+        <!-- Columna izquierda: tablero / video / botón -->
+        <div id="puzzleBoardContainer" style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+          <div id="puzzleBoard" style="width:400px; height:400px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:2px; background:#222;"></div>
+          <button id="playVideoBtn" type="button" style="padding:10px 20px; background:#ff4d6d; color:white; border:none; border-radius:12px; font-size:16px; cursor:pointer; display:none;">🎬 Presiona aquí</button>
+          <video id="puzzleVideo" width="400" height="400" controls style="display:none; margin-top:10px;">
+            <source src="Video rompecabezas.mp4" type="video/mp4"/>
+          </video>
+        </div>
+
+        <!-- Columna derecha: referencia -->
+        <div id="puzzleReference" style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+          <img id="puzzleReferenceImg" src="imagen para el rompecabezas.png" alt="Referencia" style="width:220px; border:3px solid #ff4d6d; border-radius:12px;">
+          <div class="reference-text">Referencia</div>
+        </div>
+
+        <!-- Botón cerrar -->
+        <button id="closePuzzle" class="close-btn" aria-label="Cerrar rompecabezas">✖</button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Ventana emergente de la carta -->
+  <div id="popupCarta" class="popup-carta" aria-hidden="true">
+    <div class="carta-contenido">
+      <button class="cerrar-carta" id="closeCartaBtn">✖</button>
+      <div class="marco-carta">
+        <img src="carta.png" alt="Carta especial" id="cartaImagen"/>
+      </div>
+      <button class="zoom-btn" id="zoomCartaBtn">🔍</button>
+    </div>
+  </div>
+
+  <!-- 🎟️ Máquina de tickets -->
+  <div class="ticket-machine">
+    <button id="generateTicketBtn">Generar Recibo</button>
+    <div class="slot">
+      <div id="ticket-list"></div>
+    </div>
+    <div id="pull-message">Jala el ticket 💖</div>
+    <div id="pulled-ticket-area"></div>
+  </div>
+
+ <!-- 🎬 Modal para reproducir videos -->
+<div id="modal-video" class="modal-video" aria-hidden="true" style="display:none;">
+  <div class="modal-video-content" role="dialog" aria-modal="true">
+    <!-- Botón de cerrar -->
+    <button id="closeVideoBtn" class="close-video" aria-label="Cerrar video">✖</button>
+    
+    <!-- Reproductor de video -->
+    <video id="video-player" controls playsinline style="max-width:100%; height:auto;"></video>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+
+
+
+</body>
+</html>
+
+
